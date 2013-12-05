@@ -1,0 +1,16 @@
+with open('exemplo.txt', encoding='utf-8') as arq:
+    for linha in arq:
+        print(linha)
+
+
+arq = open('exemplo.txt', encoding='utf-8')
+for linha in arq:
+    print(linha)
+# ...
+# ...
+# !!!
+# ...
+# ...
+# ...
+
+arq.close()
