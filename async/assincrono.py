@@ -34,8 +34,9 @@ def baixar(qtd):
         url = BASE_URL+nome
         conj_baixar.add(nome)
         http_client.fetch(url, processar)
-
+    print 'antes do loop de eventos'
     ioloop.IOLoop.instance().start()
+    print 'depois do loop de eventos'
     return qt_bytes, qt_arqs
 
 if __name__=='__main__':
