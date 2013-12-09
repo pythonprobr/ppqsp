@@ -1,8 +1,8 @@
 def corrotina():
     print('\t(corrotina) inciciando...')
-    x = yield 1
+    x = yield
     print('\t(corrotina) recebeu x: %r' % x)
-    y = yield 2
+    y = yield
     print('\t(corrotina) recebeu y: %r' % y)
     print('\t(corrotina) terminando.')
 
@@ -10,16 +10,16 @@ def corrotina():
 def principal():
     print('(principal) iniciando...')
     co = corrotina()
-    print('(principal) corrotina instanciada: %r' % co)
-    res = next(co)
-    print('(principal) produzido por next(co): %r' % res)
-    res2 = co.send(88)
-    print('(principal) produzido por co.send(88): %r' % res2)
+    print('(principal) invocando next(co)...')
+    next(co)
+    print('(principal) invocando co.send(88)...')
+    co.send(88)
     try:
-        res3 = co.send(99)
+        print('(principal) invocando co.send(99)...')
+        co.send(99)
         # o print a seguir nunca vai acontecer
-        print('(principal) produzido por co.send(99): %r' % res3)
+        print('(principal) invocado co.send(99)')
     except StopIteration:
         print('(principal) a corotina nao tem mais valores a produzir')
-principal()
 
+principal()
