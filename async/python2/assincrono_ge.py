@@ -15,14 +15,14 @@ def processar(cliente, nome, numero):
     url = BASE_URL+nome
     response = yield gen.Task(cliente.fetch, url)
     if response.error:
-        print('Erro: ', response.error)
+        print 'Erro: ', response.error
         raise SystemExit
         # XXX: como tratar erros neste caso?
         # http_client.fetch(response.request.url, XXX)
     else:
         qt_bytes += salvar(nome, response.body)
         qt_arqs += 1
-        print('\t\t\t%3d\t%s --> salvo' % (numero, nome))
+        print '\t\t\t%3d\t%s --> salvo' % (numero, nome)
         conj_baixar.discard(nome)
         if not conj_baixar:
             ioloop.IOLoop.instance().stop()
@@ -34,7 +34,7 @@ def baixar(qtd):
 
     for num, sigla in enumerate(ler_siglas(qtd), 1):
         nome = sigla + '-lgflag.gif'
-        print('\t%3d\t%s' % (num, nome))
+        print '\t%3d\t%s' % (num, nome)
         processar(cliente, nome, num)
 
     ioloop.IOLoop.instance().start()

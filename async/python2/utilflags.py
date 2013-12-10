@@ -47,8 +47,8 @@ def reportar(funcao_baixar):
     else:
         qt_baixar = 10
     recriar_diretorio()
-    print('baixando %s arquivos...' % qt_baixar)
+    print 'baixando %s arquivos...' % qt_baixar
     t0 = time.time()
     qt_bytes, qt_arqs = funcao_baixar(qt_baixar)
-    print(qt_bytes, 'bytes baixados em %s arquivos' % qt_arqs)
-    print('tempo transcorrido: %0.2fs' % (time.time()-t0))
+    print qt_bytes, 'bytes baixados em %s arquivos' % qt_arqs
+    print 'tempo transcorrido: %0.2fs' % (time.time()-t0)
