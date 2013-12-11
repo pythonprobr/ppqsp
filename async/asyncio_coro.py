@@ -3,7 +3,6 @@ import aiohttp
 
 from utilflags import ler_siglas, salvar, reportar, BASE_URL
 
-
 qt_bytes = 0
 qt_arqs = 0
 
@@ -25,7 +24,7 @@ def baixar(qtd):
         nome = sigla + '-lgflag.gif'
         print('\t%3d\t%s' % (num, nome))
         corrotina = processar(nome, num)
-        tarefas.append(asyncio.Task(corrotina))
+        tarefas.append(corrotina)
 
     loop = asyncio.get_event_loop()
     loop.run_until_complete(asyncio.wait(tarefas))

@@ -12,6 +12,7 @@ Contents:
    :maxdepth: 2
 
    corrotinas/corrotinas.rst
+   async/async.rst
 
 
 * :ref:`search`
