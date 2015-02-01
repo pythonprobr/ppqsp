@@ -16,9 +16,7 @@ class Processador(object):
 
     def processar(self, response):
         if response.error:
-            print 'Erro: ', response.error
-            print '\tTentando de novo...', response.request.url
-            http_client.fetch(response.request.url, self.processar)
+            print('Erro ao baixar %s: %r' % (nome, response.error))
         else:
             Processador.qt_bytes += salvar(self.nome, response.body)
             Processador.qt_arqs += 1

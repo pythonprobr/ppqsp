@@ -13,12 +13,13 @@ def processar(cliente, nome, numero):
     global qt_bytes, qt_arqs
     conj_baixar.add(nome)
     url = BASE_URL+nome
+    print('\t\tbaixando %s' % nome)
     response = yield gen.Task(cliente.fetch, url)
     if response.error:
-        print 'Erro: ', response.error
-        raise SystemExit
+        print('Erro ao baixar %s: %r' %
+              (nome, response.error))
         # XXX: como tratar erros neste caso?
-        # http_client.fetch(response.request.url, XXX)
+        # cliente.fetch(response.request.url, XXX)
     else:
         qt_bytes += salvar(nome, response.body)
         qt_arqs += 1
@@ -37,7 +38,10 @@ def baixar(qtd):
         print '\t%3d\t%s' % (num, nome)
         processar(cliente, nome, num)
 
+    print '*** antes do loop de eventos'
     ioloop.IOLoop.instance().start()
+    print '*** depois do loop de eventos'
+
     return qt_bytes, qt_arqs
 
 if __name__=='__main__':
