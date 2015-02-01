@@ -1,7 +1,6 @@
 # coding: utf-8
 
-import contextlib
-import urllib.request, urllib.error, urllib.parse
+import urllib.request
 
 from utilflags import ler_siglas, salvar, reportar, BASE_URL
 
@@ -15,7 +14,7 @@ def baixar(qtd):
         nome = sigla + '-lgflag.gif'
         print('\t%3d\t%s' % (num, nome))
         url = BASE_URL+nome
-        with contextlib.closing(urllib.request.urlopen(url)) as img_orig:
+        with urllib.request.urlopen(url) as img_orig:
             img = img_orig.read()
             qt_bytes += salvar(nome, img)
             qt_arqs += 1

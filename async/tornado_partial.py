@@ -1,5 +1,7 @@
 # coding: utf-8
 
+import functools
+
 from tornado import httpclient, ioloop
 
 from utilflags import ler_siglas, salvar, reportar, BASE_URL
@@ -8,7 +10,7 @@ qt_bytes = 0
 qt_arqs = 0
 conj_baixar = set()
 
-def processar(response, nome, numero):
+def processar(nome, numero, response):
     global qt_bytes, qt_arqs
     if response.error:
         print('Erro: ', response.error)
@@ -22,11 +24,6 @@ def processar(response, nome, numero):
         if not conj_baixar:
             ioloop.IOLoop.instance().stop()
 
-def faz_processar(nome, numero):
-    def _interna(response):
-        processar(response, nome, numero)
-    return _interna
-
 def baixar(qtd):
     """ busca a quantidade ``qtd`` de bandeiras """
 
@@ -37,7 +34,7 @@ def baixar(qtd):
         print('\t%3d\t%s' % (num, nome))
         url = BASE_URL+nome
         conj_baixar.add(nome)
-        proc = faz_processar(nome, num)
+        proc = functools.partial(processar, nome, num)
         http_client.fetch(url, proc)
 
     ioloop.IOLoop.instance().start()
